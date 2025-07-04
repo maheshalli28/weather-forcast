@@ -1,38 +1,275 @@
+/* === SKY BACKGROUND ANIMATION === */
+.sky {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  animation: skyCycle 30s infinite linear;
+  background: linear-gradient(to top, #020111, #191621);
+  z-index: -2;
+}
+
+/* === SUN & MOON === */
+.sun, .moon {
+  position: absolute;
+  top: 25%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation: moveAcross 50s linear infinite;
+  z-index: -1;
+}
+
+.sun {
+  background: radial-gradient(circle, #FFD700 30%, #FFA500 100%);
+  left: -100px
+ 
+}
+
+.moon {
+  background: radial-gradient(circle, #f0f0f0 30%, #999 100%);
+  left: -100px;
+  animation-delay: 25s;
+}
+
+/* === CLOUDS === */
+.cloud {
+  position: absolute;
+  top: 15%;
+  width: 200px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -15px;
+}
+
+.cloud::before {
+  left: 20px;
+}
+
+.cloud::after {
+  left: 80px;
+}
+
+.cloud1 {
+  left: -250px;
+  animation: cloudMove 60s linear infinite;
+}
+
+.cloud2 {
+  top: 25%;
+  left: -400px;
+  animation: cloudMove 80s linear infinite;
+}
+
+/* === ANIMATIONS === */
+@keyframes skyCycle {
+  0% { background: linear-gradient(to top, #020111, #191621); }
+  25% { background: linear-gradient(to top, #ff7300, #fdd835); }
+  50% { background: linear-gradient(to top, #87cefa, #fdf497); }
+  75% { background: linear-gradient(to top, #fca5a5, #3b0764); }
+  100% { background: linear-gradient(to top, #020111, #191621); }
+}
+
+@keyframes moveAcross {
+  0% { left: -100px; top: 20%; }
+  50% { left: 50%; top: 10%; }
+  100% { left: 110%; top: 20%; }
+}
+
+@keyframes cloudMove {
+  0% { left: -300px; }
+  100% { left: 110%; }
+}
+
+@keyframes rainAnim {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 10px; }
+}
+
+/* === BASIC STYLING === */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
 .App {
+  position: relative;
+  z-index: 1;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+  color: #fff;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  overflow-x: hidden;
+}
+
+/* === SEARCH FIELD === */
+.search-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-container input {
+  padding: 12px 40px 12px 15px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: #0077ff;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.search-icon:hover {
+  color: #005dc1;
+}
+
+
+/* === WEATHER BOX === */
+.weather-box {
+   background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+.weather-info {
+ 
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  gap: 20px;
+
 }
 
-.App-link {
-  color: #61dafb;
+.weather-box h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.weather-box p {
+  font-size: 18px;
+  margin: 6px 0;
+ 
+}
+.weather-title {
+  align-items: center;
+  font-size: 28px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+/* === FORECAST === */
+.forecast {
+  margin-top: 40px;
+}
+
+.forecast h3 {
+  margin-bottom: 20px;
+}
+
+.forecast-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Responsive forecast card */
+.forecast-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  width: 150px;
+  max-width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.forecast-card:hover {
+  transform: scale(1.05);
+}
+
+.forecast-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* === ICON ANIMATION === */
+.icon-animate {
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* === ERROR === */
+.error {
+  color: #ffdddd;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/* === RESPONSIVE (Mobile) === */
+@media screen and (max-width: 768px) {
+  .forecast-grid {
+    flex-direction: row;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .forecast-card {
+    width: 80%;
+    max-width: 250px;
+  }
+
+  .search-container {
+    width: 80%;
+    max-width: none;
+  }
+
+  .search-container input {
+    width: 100%;
+  }
+
+  .search-icon {
+    right: -30px;
   }
 }
